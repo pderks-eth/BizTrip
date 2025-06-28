@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class TripNotFoundAdvice {
 
 	@ResponseBody
-	@ExceptionHandler(TriptNotFoundException.class)
-	@ResponseStatus(HttpStatus.NOT_FOUND)
-	String productNotFoundHandler(TriptNotFoundException ex) {
+        @ExceptionHandler(TripNotFoundException.class)
+        @ResponseStatus(HttpStatus.NOT_FOUND)
+        String tripNotFoundHandler(TripNotFoundException ex) {
 		return ex.getMessage();
 	}
 }
