@@ -13,8 +13,12 @@ import org.springframework.context.annotation.Bean;
 
 import ch.clip.trips.model.BusinessTrip;
 import ch.clip.trips.model.Meeting;
+import ch.clip.trips.model.Employee;
+import ch.clip.trips.model.Flight;
 import ch.clip.trips.repo.BusinessTripRepository;
 import ch.clip.trips.repo.MeetingRepository;
+import ch.clip.trips.repo.EmployeeRepository;
+import ch.clip.trips.repo.FlightRepository;
 
 @SpringBootApplication
 public class BusinessTripsBackendApplication {
@@ -25,12 +29,34 @@ public class BusinessTripsBackendApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demoData(BusinessTripRepository businessTripRepository,
-			MeetingRepository meetingRepository) {
+       public CommandLineRunner demoData(BusinessTripRepository businessTripRepository,
+                       MeetingRepository meetingRepository,
+                       EmployeeRepository employeeRepository,
+                       FlightRepository flightRepository) {
 		// https://spring.io/guides/gs/accessing-data-jpa/
-		return (args) -> {
+                return (args) -> {
 
-			// save a couple of BusinessTrips
+                        // create employees
+                        Employee alice = new Employee();
+                        alice.setId(1L);
+                        alice.setName("Alice");
+                        alice.setTitle("Engineer");
+
+                        Employee bob = new Employee();
+                        bob.setId(2L);
+                        bob.setName("Bob");
+                        bob.setTitle("Consultant");
+
+                        Employee carol = new Employee();
+                        carol.setId(3L);
+                        carol.setName("Carol");
+                        carol.setTitle("Manager");
+
+                        employeeRepository.save(alice);
+                        employeeRepository.save(bob);
+                        employeeRepository.save(carol);
+
+                        // save a couple of BusinessTrips
 			BusinessTrip bt01 = new BusinessTrip(1L, "BT01",
 					"San Francisco World Trade Center on new Server/IOT/Client ", LocalDateTime.of(2021, 2, 13, 9, 00),
 					LocalDateTime.of(2021, 2, 15, 16, 56));
@@ -57,8 +83,12 @@ public class BusinessTripsBackendApplication {
 					LocalDateTime.of(2023, 2, 10, 9, 0), LocalDateTime.of(2023, 2, 12, 17, 0));
 			BusinessTrip bt12 = new BusinessTrip(12L, "BT12", "Barcelona IoT showcase",
 					LocalDateTime.of(2023, 5, 3, 8, 30), LocalDateTime.of(2023, 5, 7, 20, 0));
-			BusinessTrip bt13 = new BusinessTrip(13L, "BT13", "Dubai logistics client visits",
-					LocalDateTime.of(2023, 9, 9, 10, 15), LocalDateTime.of(2023, 9, 14, 17, 30));
+                        BusinessTrip bt13 = new BusinessTrip(13L, "BT13", "Dubai logistics client visits",
+                                        LocalDateTime.of(2023, 9, 9, 10, 15), LocalDateTime.of(2023, 9, 14, 17, 30));
+
+                        bt01.setEmployees(List.of(alice, bob));
+                        bt02.setEmployees(List.of(bob));
+                        bt03.setEmployees(List.of(carol));
 			businessTripRepository.save(bt01);
 			businessTripRepository.save(bt02);
 			businessTripRepository.save(bt03);
@@ -83,9 +113,27 @@ public class BusinessTripsBackendApplication {
 
 			meetingRepository.save(one);
 			meetingRepository.save(zero);
-			meetingRepository.save(handsOn);
-			meetingRepository.save(workOn);
-			meetingRepository.save(stayTuned);
+                        meetingRepository.save(handsOn);
+                        meetingRepository.save(workOn);
+                        meetingRepository.save(stayTuned);
+
+                        // flights for employees
+                        Flight fl1 = new Flight();
+                        fl1.setId(1L);
+                        fl1.setNumber("LX123");
+                        fl1.setFrom("ZRH");
+                        fl1.setTo("SFO");
+                        fl1.setEmployee(alice);
+
+                        Flight fl2 = new Flight();
+                        fl2.setId(2L);
+                        fl2.setNumber("BA456");
+                        fl2.setFrom("LHR");
+                        fl2.setTo("ZRH");
+                        fl2.setEmployee(bob);
+
+                        flightRepository.save(fl1);
+                        flightRepository.save(fl2);
 
 			// List<Trips>
 
