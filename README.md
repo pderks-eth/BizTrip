@@ -2,7 +2,7 @@
 
 ## Projektübersicht
 
-Das Business Trips Backend ist eine Spring Boot REST API Anwendung zur Verwaltung von Geschäftsreisen und zugehörigen Meetings. Die Anwendung verwendet eine 2-Tier Architektur mit JPA für die Datenpersistierung.
+Das Business Trips Backend ist eine Spring Boot REST API Anwendung zur Verwaltung von Geschäftsreisen und zugehörigen Meetings. Die Anwendung verwendet eine 2-Tier Architektur mit JPA für die Datenpersistierung. Das Datenmodell umfasst nun auch Mitarbeiter sowie dazugehörige Flüge.
 
 ### Technologie-Stack
 - **Backend**: Java 21, Spring Boot 3.2.6
