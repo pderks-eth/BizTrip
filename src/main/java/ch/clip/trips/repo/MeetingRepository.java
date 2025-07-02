@@ -2,10 +2,12 @@ package ch.clip.trips.repo;
 
 import java.util.List;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import ch.clip.trips.model.Meeting;
 
-public interface MeetingRepository extends CrudRepository<Meeting, Long> {
-	List<Meeting> findByTitle(String title); 
+public interface MeetingRepository extends JpaRepository<Meeting, Long> {
+    
+    List<Meeting> findByName(String name);
+    
 }
