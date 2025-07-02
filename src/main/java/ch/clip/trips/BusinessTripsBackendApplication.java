@@ -29,34 +29,37 @@ public class BusinessTripsBackendApplication {
 	}
 
 	@Bean
-       public CommandLineRunner demoData(BusinessTripRepository businessTripRepository,
-                       MeetingRepository meetingRepository,
-                       EmployeeRepository employeeRepository,
-                       FlightRepository flightRepository) {
+	public CommandLineRunner demoData(BusinessTripRepository businessTripRepository,
+			MeetingRepository meetingRepository,
+			EmployeeRepository employeeRepository,
+			FlightRepository flightRepository) {
 		// https://spring.io/guides/gs/accessing-data-jpa/
-                return (args) -> {
+		return (args) -> {
 
-                        // create employees
-                        Employee alice = new Employee();
-                        alice.setId(1L);
-                        alice.setName("Alice");
-                        alice.setTitle("Engineer");
+			// create employees
+			Employee alice = Employee.builder()
+					.id(1L)
+					.name("Alice")
+					.title("Engineer")
+					.build();
 
-                        Employee bob = new Employee();
-                        bob.setId(2L);
-                        bob.setName("Bob");
-                        bob.setTitle("Consultant");
+			Employee bob = Employee.builder()
+					.id(2L)
+					.name("Bob")
+					.title("Consultant")
+					.build();
 
-                        Employee carol = new Employee();
-                        carol.setId(3L);
-                        carol.setName("Carol");
-                        carol.setTitle("Manager");
+			Employee carol = Employee.builder()
+					.id(3L)
+					.name("Carol")
+					.title("Manager")
+					.build();
 
-                        employeeRepository.save(alice);
-                        employeeRepository.save(bob);
-                        employeeRepository.save(carol);
+			employeeRepository.save(alice);
+			employeeRepository.save(bob);
+			employeeRepository.save(carol);
 
-                        // save a couple of BusinessTrips
+			// save a couple of BusinessTrips
 			BusinessTrip bt01 = new BusinessTrip(1L, "BT01",
 					"San Francisco World Trade Center on new Server/IOT/Client ", LocalDateTime.of(2021, 2, 13, 9, 00),
 					LocalDateTime.of(2021, 2, 15, 16, 56));
@@ -83,75 +86,60 @@ public class BusinessTripsBackendApplication {
 					LocalDateTime.of(2023, 2, 10, 9, 0), LocalDateTime.of(2023, 2, 12, 17, 0));
 			BusinessTrip bt12 = new BusinessTrip(12L, "BT12", "Barcelona IoT showcase",
 					LocalDateTime.of(2023, 5, 3, 8, 30), LocalDateTime.of(2023, 5, 7, 20, 0));
-                        BusinessTrip bt13 = new BusinessTrip(13L, "BT13", "Dubai logistics client visits",
-                                        LocalDateTime.of(2023, 9, 9, 10, 15), LocalDateTime.of(2023, 9, 14, 17, 30));
+			BusinessTrip bt13 = new BusinessTrip(13L, "BT13", "Dubai logistics client visits",
+					LocalDateTime.of(2023, 9, 9, 10, 15), LocalDateTime.of(2023, 9, 14, 17, 30));
 
-                        bt01.setEmployees(List.of(alice, bob));
-                        bt02.setEmployees(List.of(bob));
-                        bt03.setEmployees(List.of(carol));
-			businessTripRepository.save(bt01);
-			businessTripRepository.save(bt02);
-			businessTripRepository.save(bt03);
-			businessTripRepository.save(bt04);
-			businessTripRepository.save(bt05);
-			businessTripRepository.save(bt06);
-			businessTripRepository.save(bt07);
-			businessTripRepository.save(bt08);
-			businessTripRepository.save(bt09);
-			businessTripRepository.save(bt10);
-			businessTripRepository.save(bt11);
-			businessTripRepository.save(bt12);
-			businessTripRepository.save(bt13);
+			// Assign employees to business trips
+			bt01.setEmployees(List.of(alice, bob));
+			bt02.setEmployees(List.of(bob));
+			bt03.setEmployees(List.of(carol));
+
+			// Save all business trips
+			List<BusinessTrip> allTrips = List.of(bt01, bt02, bt03, bt04, bt05, bt06, bt07, bt08, bt09, bt10, bt11,
+					bt12, bt13);
+			businessTripRepository.saveAll(allTrips);
 
 			// save a couple of meetings
+			List<Meeting> meetings = List.of(
+					Meeting.builder()
+							.id(1L)
+							.name("One Conference")
+							.description("Key Note on One Conference")
+							.businessTrip(bt01)
+							.build(),
+					Meeting.builder()
+							.id(2L)
+							.name("Zero Conference")
+							.description("Workshop Zero on One Conference")
+							.businessTrip(bt01)
+							.build(),
+					Meeting.builder()
+							.id(3L)
+							.name("One Conference")
+							.description("HandsOn on One Conference")
+							.businessTrip(bt02)
+							.build(),
+					Meeting.builder()
+							.id(4L)
+							.name("One Conference")
+							.description("Key Note on One Conference")
+							.businessTrip(bt02)
+							.build(),
+					Meeting.builder()
+							.id(5L)
+							.name("One Conference")
+							.description("Key Note on One Conference")
+							.businessTrip(bt03)
+							.build());
 
-			Meeting one = new Meeting(1L, "One Conference", "Key Note on One Conference", bt01);
-			Meeting zero = new Meeting(2L, "Zero Conference", "Workshop Zero on One Conference", bt01);
-			Meeting handsOn = new Meeting(3L, "One Conference", "HandsOn on One Conference", bt02);
-			Meeting workOn = new Meeting(4L, "One Conference", "Key Note on One Conference", bt02);
-			Meeting stayTuned = new Meeting(5L, "One Conference", "Key Note on One Conference", bt03);
+			// flights for employees
+			List<Flight> flights = List.of(
+					Flight.builder().id(1L).number("LX123").from("ZRH").to("SFO").employee(alice).build(),
+					Flight.builder().id(2L).number("BA456").from("LHR").to("ZRH").employee(bob).build());
+			flightRepository.saveAll(flights);
 
-			meetingRepository.save(one);
-			meetingRepository.save(zero);
-                        meetingRepository.save(handsOn);
-                        meetingRepository.save(workOn);
-                        meetingRepository.save(stayTuned);
-
-                        // flights for employees
-                        Flight fl1 = new Flight();
-                        fl1.setId(1L);
-                        fl1.setNumber("LX123");
-                        fl1.setFrom("ZRH");
-                        fl1.setTo("SFO");
-                        fl1.setEmployee(alice);
-
-                        Flight fl2 = new Flight();
-                        fl2.setId(2L);
-                        fl2.setNumber("BA456");
-                        fl2.setFrom("LHR");
-                        fl2.setTo("ZRH");
-                        fl2.setEmployee(bob);
-
-                        flightRepository.save(fl1);
-                        flightRepository.save(fl2);
-
-			// List<Trips>
-
-			List<BusinessTrip> wishTrips = new ArrayList<BusinessTrip>();
-
-			wishTrips.add(bt01);
-			wishTrips.add(bt02);
-			wishTrips.add(bt03);
-			wishTrips.add(bt04);
-			wishTrips.add(bt05);
-			wishTrips.add(bt06);
-			wishTrips.add(bt07);
-			wishTrips.add(bt08);
-			wishTrips.add(bt09);
-			wishTrips.add(bt10);
-			wishTrips.add(bt11);
-			wishTrips.add(bt12);
-			wishTrips.add(bt13);
+			// List<Trips> - using the same list as created above
+			List<BusinessTrip> wishTrips = allTrips;
 
 		};
 	}
