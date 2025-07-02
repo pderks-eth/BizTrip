@@ -38,19 +38,16 @@ public class BusinessTripsBackendApplication {
 
 			// create employees
 			Employee alice = Employee.builder()
-					.id(1L)
 					.name("Alice")
 					.title("Engineer")
 					.build();
 
 			Employee bob = Employee.builder()
-					.id(2L)
 					.name("Bob")
 					.title("Consultant")
 					.build();
 
 			Employee carol = Employee.builder()
-					.id(3L)
 					.name("Carol")
 					.title("Manager")
 					.build();
@@ -132,15 +129,14 @@ public class BusinessTripsBackendApplication {
 							.businessTrip(bt03)
 							.build());
 
+			meetingRepository.saveAll(meetings);
+
 			// flights for employees
 			List<Flight> flights = List.of(
 					Flight.builder().id(1L).number("LX123").from("ZRH").to("SFO").employee(alice).build(),
 					Flight.builder().id(2L).number("BA456").from("LHR").to("ZRH").employee(bob).build());
 			flightRepository.saveAll(flights);
-
-			// List<Trips> - using the same list as created above
-			List<BusinessTrip> wishTrips = allTrips;
-
+			log.info("Demo data initialized successfully");
 		};
 	}
 

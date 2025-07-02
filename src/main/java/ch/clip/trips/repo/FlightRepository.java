@@ -18,6 +18,6 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
     
     Optional<Flight> findByNumber(String number);
     
-    @Query("SELECT f FROM Flight f WHERE f.from = :departure OR f.to = :destination")
-    List<Flight> findByDepartureOrDestination(@Param("departure") String departure, @Param("destination") String destination);
+    // @Query("SELECT f FROM Flight f WHERE f.from = :departure OR f.to = :destination")
+    // List<Flight> findByDepartureOrDestination(@Param("departure") String departure, @Param("destination") String destination);
 }
