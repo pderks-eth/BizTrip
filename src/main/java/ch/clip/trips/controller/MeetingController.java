@@ -86,7 +86,7 @@ public class MeetingController {
         try {
             Meeting updatedMeeting = meetingRepository.findById(id)
                 .map(meeting -> {
-                    meeting.setTitle(newMeeting.getTitle());
+                    meeting.setName(newMeeting.getName());
                     meeting.setDescription(newMeeting.getDescription());
                     if (newMeeting.getBusinessTrip() != null) {
                         meeting.setBusinessTrip(newMeeting.getBusinessTrip());
@@ -104,6 +104,20 @@ public class MeetingController {
             log.error("Error updating meeting with ID {}: {}", id, e.getMessage());
             return ResponseEntity.badRequest().build(); // 400 Bad Request
         }
+    }
+
+    /**
+     * Search meetings by name (changed from title)
+     * @param name the name to search for
+     * @return ResponseEntity with matching meetings
+     */
+    @GetMapping("/meetings/search/{name}")
+    public ResponseEntity<List<Meeting>> searchMeetingsByName(@PathVariable String name) {
+        List<Meeting> meetings = meetingRepository.findByName(name);
+        if (meetings.isEmpty()) {
+            return ResponseEntity.noContent().build(); // 204 No Content
+        }
+        return ResponseEntity.ok(meetings); // 200 OK
     }
 
     /**
@@ -141,19 +155,5 @@ public class MeetingController {
             log.error("Error deleting all meetings: {}", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // 500 Internal Server Error
         }
-    }
-
-    /**
-     * Search meetings by title
-     * @param title the title to search for
-     * @return ResponseEntity with matching meetings
-     */
-    @GetMapping("/meetings/search/{title}")
-    public ResponseEntity<List<Meeting>> searchMeetingsByTitle(@PathVariable String title) {
-        List<Meeting> meetings = meetingRepository.findByTitle(title);
-        if (meetings.isEmpty()) {
-            return ResponseEntity.noContent().build(); // 204 No Content
-        }
-        return ResponseEntity.ok(meetings); // 200 OK
     }
 }
