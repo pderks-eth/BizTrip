@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -76,11 +77,16 @@ public class FlightController {
     }
 
     @DeleteMapping("/flights/{id}")
-    public ResponseEntity<Void> deleteFlight(@PathVariable Long id) {
+    public ResponseEntity<String> deleteFlight(@PathVariable Long id) {
         if (!flightRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
-        flightRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
+        try {
+            flightRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("Cannot delete flight. It is referenced by other entities.");
+        }
     }
 }
