@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -126,15 +127,19 @@ public class MeetingController {
      * @return ResponseEntity with no content
      */
     @DeleteMapping("/meetings/{id}")
-    public ResponseEntity<Void> deleteMeeting(@PathVariable Long id) {
+    public ResponseEntity<String> deleteMeeting(@PathVariable Long id) {
         if (!meetingRepository.existsById(id)) {
             return ResponseEntity.notFound().build(); // 404 Not Found
         }
-        
+
         try {
             meetingRepository.deleteById(id);
             log.info("Deleted meeting with ID: {}", id);
             return ResponseEntity.noContent().build(); // 204 No Content
+        } catch (DataIntegrityViolationException e) {
+            log.error("Error deleting meeting with ID {}: {}", id, e.getMessage());
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("Cannot delete meeting. It is referenced by other entities.");
         } catch (Exception e) {
             log.error("Error deleting meeting with ID {}: {}", id, e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // 500 Internal Server Error
@@ -146,11 +151,15 @@ public class MeetingController {
      * @return ResponseEntity with no content
      */
     @DeleteMapping("/meetings")
-    public ResponseEntity<Void> deleteAllMeetings() {
+    public ResponseEntity<String> deleteAllMeetings() {
         try {
             meetingRepository.deleteAll();
             log.info("Deleted all meetings");
             return ResponseEntity.noContent().build(); // 204 No Content
+        } catch (DataIntegrityViolationException e) {
+            log.error("Error deleting all meetings: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("Cannot delete meetings. They are referenced by other entities.");
         } catch (Exception e) {
             log.error("Error deleting all meetings: {}", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // 500 Internal Server Error
