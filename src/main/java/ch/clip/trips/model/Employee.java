@@ -31,10 +31,10 @@ public class Employee implements Serializable {
     private String title;
 
     @ManyToMany(mappedBy = "employees")
-    @JsonBackReference
+    @JsonBackReference("trip-employees")
     private List<BusinessTrip> businessTrips;
 
     @OneToMany(mappedBy = "employee")
-    @JsonManagedReference
+    @JsonManagedReference("employee-flights")
     private List<Flight> flights;
 }

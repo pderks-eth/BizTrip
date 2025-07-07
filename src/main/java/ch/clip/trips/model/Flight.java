@@ -38,6 +38,6 @@ public class Flight implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "employee_id")
-    @JsonBackReference
+    @JsonBackReference("employee-flights")
     private Employee employee;
 }

@@ -30,6 +30,6 @@ public class Meeting implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "business_trip_id")
-    @JsonBackReference
+    @JsonBackReference("businessTrip-meetings")
     private BusinessTrip businessTrip;
 }

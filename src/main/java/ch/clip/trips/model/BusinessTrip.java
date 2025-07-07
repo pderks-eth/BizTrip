@@ -33,7 +33,7 @@ public class BusinessTrip implements Serializable {
     private LocalDateTime endTrip;
 
         @OneToMany(mappedBy = "businessTrip")
-        @JsonManagedReference
+        @JsonManagedReference("businessTrip-meetings")
         private List<Meeting> meetings;
 
         @ManyToMany
@@ -42,7 +42,7 @@ public class BusinessTrip implements Serializable {
           joinColumns = @JoinColumn(name = "Businesstrip_idBusinesstrip"),
           inverseJoinColumns = @JoinColumn(name = "Employee_idEmployee")
         )
-        @JsonManagedReference
+        @JsonManagedReference("trip-employees")
         private List<Employee> employees;
 
     public BusinessTrip() {
