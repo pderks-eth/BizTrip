@@ -13,8 +13,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
-import ch.clip.trips.model.Employee;
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
@@ -23,7 +21,7 @@ import lombok.Data;
 @Entity
 public class BusinessTrip implements Serializable {
 
-//	private static final long serialVersionUID = 67027563808382509L;
+    // private static final long serialVersionUID = 67027563808382509L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,18 +30,18 @@ public class BusinessTrip implements Serializable {
     private LocalDateTime startTrip;
     private LocalDateTime endTrip;
 
-        @OneToMany(mappedBy = "businessTrip")
-        @JsonManagedReference("businessTrip-meetings")
-        private List<Meeting> meetings;
+    @OneToMany(mappedBy = "businessTrip")
+    @JsonManagedReference("businessTrip-meetings")
+    private List<Meeting> meetings;
 
-        @ManyToMany
-        @JoinTable(
-          name = "Businesstrip_has_Employee",
-          joinColumns = @JoinColumn(name = "Businesstrip_idBusinesstrip"),
-          inverseJoinColumns = @JoinColumn(name = "Employee_idEmployee")
-        )
-        @JsonManagedReference("trip-employees")
-        private List<Employee> employees;
+    @ManyToMany
+    @JoinTable(
+        name = "businesstrip_employee",
+        joinColumns = @JoinColumn(name = "businesstrip_id"),
+        inverseJoinColumns = @JoinColumn(name = "employee_id")
+    )
+    @JsonManagedReference("trip-employees")
+    private List<Employee> employees;
 
     public BusinessTrip() {
         super();
@@ -60,7 +58,7 @@ public class BusinessTrip implements Serializable {
 
     @Override
     public String toString() {
-                return "BusinessTrip [id=" + id + ", title=" + title + ", description=" + description + ", startTrip="
-                                + startTrip + ", endTrip=" + endTrip + ", meetings=" + meetings + ", employees=" + employees + "]";
-        }
+        return "BusinessTrip [id=" + id + ", title=" + title + ", description=" + description + ", startTrip="
+                + startTrip + ", endTrip=" + endTrip + ", meetings=" + meetings + ", employees=" + employees + "]";
+    }
 }
