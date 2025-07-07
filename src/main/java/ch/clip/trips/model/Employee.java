@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
@@ -31,7 +32,7 @@ public class Employee implements Serializable {
     private String title;
 
     @ManyToMany(mappedBy = "employees")
-    @JsonBackReference("trip-employees")
+    @JsonIgnore
     private List<BusinessTrip> businessTrips;
 
     @OneToMany(mappedBy = "employee")

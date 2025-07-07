@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
@@ -35,12 +36,8 @@ public class BusinessTrip implements Serializable {
     private List<Meeting> meetings;
 
     @ManyToMany
-    @JoinTable(
-        name = "businesstrip_employee",
-        joinColumns = @JoinColumn(name = "businesstrip_id"),
-        inverseJoinColumns = @JoinColumn(name = "employee_id")
-    )
-    @JsonManagedReference("trip-employees")
+    @JoinTable(name = "businesstrip_employee", joinColumns = @JoinColumn(name = "businesstrip_id"), inverseJoinColumns = @JoinColumn(name = "employee_id"))
+    @JsonIgnore
     private List<Employee> employees;
 
     public BusinessTrip() {
