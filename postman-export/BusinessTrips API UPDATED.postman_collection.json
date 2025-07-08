@@ -1,0 +1,337 @@
+{
+	"info": {
+		"_postman_id": "aeacf535-d2bc-47b6-9c7e-b8f940b279c8",
+		"name": "BusinessTrips API UPDATED",
+		"description": "Collection zum Testen der BusinessTrip und Meeting Endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "36362179"
+	},
+	"item": [
+		{
+			"name": "Meetings",
+			"item": [
+				{
+					"name": "Get all meetings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/v1/meetings"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all meetings non API",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/meetings"
+					},
+					"response": []
+				},
+				{
+					"name": "Get meeting by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/v1/meetings/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Create new meeting",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"New Title\",\n  \"description\": \"New Desc\",\n  \"businessTrip\": {\n    \"id\": 1\n  }\n}"
+						},
+						"url": "localhost:8080/v1/meetings"
+					},
+					"response": []
+				},
+				{
+					"name": "Update meeting",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Updated Title\",\n  \"description\": \"Updated Desc\",\n  \"businessTrip\": {\n    \"id\": 1\n  }\n}"
+						},
+						"url": "localhost:8080/v1/meetings/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete meeting by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:8080/v1/meetings/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Search meetings by title",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/v1/meetings/search/One Conference"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Business Trips",
+			"item": [
+				{
+					"name": "Get all trips",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/v1/trips"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all trips non API",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/trips"
+					},
+					"response": []
+				},
+				{
+					"name": "Get trip by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/v1/trips/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Create new trip",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Geschäftsreise Zürich\",\n  \"description\": \"Treffen in Zürich\",\n  \"startTrip\": \"2025-07-01T09:00:00\",\n  \"endTrip\": \"2025-07-03T17:00:00\"\n}"
+						},
+						"url": "localhost:8080/v1/trips"
+					},
+					"response": []
+				},
+				{
+					"name": "Update trip",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Update Reise\",\n  \"description\": \"Updated Description\",\n  \"startTrip\": \"2025-07-01T10:00:00\",\n  \"endTrip\": \"2025-07-04T18:00:00\"\n}"
+						},
+						"url": "localhost:8080/v1/trips/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete trip by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:8080/v1/trips/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Search trips by title",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/v1/trips/search/Geschäftsreise Zürich"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Employee",
+			"item": [
+				{
+					"name": "Get All Employees",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/v1/employees"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all employees non API",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/employees"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Employee by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/v1/employees/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Employee",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"John Doe\",\n  \"title\": \"Manager\"\n}"
+						},
+						"url": "http://localhost:8080/v1/employees"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Employee",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Jane Doe\",\n  \"title\": \"Senior Manager\"\n}"
+						},
+						"url": "http://localhost:8080/v1/employees/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Employee",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8080/v1/employees/4"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Flight",
+			"item": [
+				{
+					"name": "Get All Flights",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/v1/flights"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all flights non API",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/flights"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Flight by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/v1/flights/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Flight",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"from\": \"Zurich\",\n  \"to\": \"Berlin\",\n  \"number\": \"LX123\",\n  \"employee\": { \"id\": 1 }\n}"
+						},
+						"url": "http://localhost:8080/v1/flights"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Flight",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"from\": \"Geneva\",\n  \"to\": \"Paris\",\n  \"number\": \"LX999\",\n  \"employee\": { \"id\": 2 }\n}"
+						},
+						"url": "http://localhost:8080/v1/flights/2"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Flight",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8080/v1/flights/1"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
