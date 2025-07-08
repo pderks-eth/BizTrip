@@ -125,7 +125,7 @@ public class BusinessTripsBackendApplication {
 					Meeting.builder()
 							.id(5L)
 							.name("One Conference")
-							.description("Key Note on One Conference")
+							.description("Workshop on One Conference")
 							.businessTrip(bt03)
 							.build());
 
